@@ -1,0 +1,63 @@
+Chapter 1: Anything From Almost Nothing
+Intermission: Equivalence Exercises page 13
+1. b
+2. c
+3. b
+
+Chapter Exercises: page 17
+
+Combinators
+1. Combinator
+2. Not a combinator
+3. Combinator
+4. Combinator
+5. Not a combinator
+
+Normal Form or Diverge?
+1. Already in normal form
+2. Diverge
+3. Converges to normal form
+
+Beta Reduce
+1. (λabc.cba)zz(λwv.w)
+   = (λa.λb.λc.cba)zz(λw.λv.w)
+   = (λb.λc.cbz)z(λw.λv.w)
+   = (λc.czz)(λw.λv.w)
+   = (λw.λv.w)zz
+   = (λv.z)z
+   = z
+   
+2. (λx.λy.xyy)(λa.a)b
+   = (λy.(λa.a)yy)b
+   = (λa.a)bb
+   = bb
+   
+3. (λy.y)(λx.xx)(λz.zq)
+   = (λx.xx)(λz.zq)
+   = (λz.zq)(λz.zq)
+   = (λz.zq)q
+   = qq
+   
+4. (λz.z)(λz.zz)(λz.zy)
+   = (λz.zz)(λz.zy)
+   = (λz.zy)(λz.zy)
+   = (λz.zy)y
+   = yy
+
+5. (λx.λy.xyy)(λy.y)y
+   = (λx.λz.xzz)(λm.m)y
+   = (λz.(λm.m)zz)y
+   = (λm.m)yy
+   = yy
+
+6. (λa.aa)(λb.ba)c
+   = (λb.ba)(λb.ba)c
+   = (λb.ba)ac
+   = aac
+
+7. (λxyz.xz(yz))(λx.z)(λx.a)
+   = (λx.λy.λq.xq(yq))(λx.z)(λx.a)
+   = (λy.λq.(λx.z)q(yq))(λx.a)
+   = λq.(λx.z)q((λx.a)q)
+   = λq.z((λx.a)q)
+   = λq.za
