@@ -1,14 +1,16 @@
--- Chaper 12: Signaling Adversity
+-- Chapter 12: Signaling Adversity
 
 import Data.List (intercalate)
 import Data.Char (toLower)
 
 -- Chapter Exercises
 -- Determine the kinds (page 477)
--- Question 1: a is a type argument, not a type constructor
---             and therefore does not have a kind
--- Question 2: a and f are type arguments, not type constructors,
---             and therefore do not have kinds
+-- Question 1: Given id :: a -> a
+--            :k a = *
+-- Question 2: r :: a -> f a
+--            :k a = *
+--            :k f a = *
+--            :k f = * -> *
 
 -- String processing (pages 478-479)
 -- Question 1
