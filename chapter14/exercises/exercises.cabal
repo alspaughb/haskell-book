@@ -1,0 +1,92 @@
+name:            exercises
+version:         0.1.0.0
+license-file:    LICENSE
+author:          Bruce Alspaugh
+maintainer:      alspaughb@gmail.com
+category:        Text
+build-type:      Simple
+cabal-version:   >=1.10
+
+library
+  exposed-modules:     Main
+                     , WordNumber
+                     , Hangman
+                     , Cipher
+  ghc-options:         -Wall -fwarn-tabs
+  build-depends:       base >=4.7 && <5
+                     , QuickCheck
+                     , hspec
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+
+-- To run a test suite first build the project,
+-- and then run the suite. Example:
+-- stack build
+-- stack ghci exercises:WordNumberTest
+-- main
+
+test-suite WordNumberTest
+  hs-source-dirs:      test
+  main-is:             WordNumberTest.hs
+  ghc-options:         -Wall -fno-warn-orphans
+  type:                exitcode-stdio-1.0
+  build-depends:       base >=4.7 && <5
+                     , exercises
+                     , hspec
+  default-language:    Haskell2010
+
+test-suite UsingQuickCheck
+  hs-source-dirs:      test
+  main-is:             UsingQuickCheck.hs
+  ghc-options:         -Wall -fno-warn-orphans
+  type:                exitcode-stdio-1.0
+  build-depends:       base >=4.7 && <5
+                     , QuickCheck
+  default-language:    Haskell2010
+
+test-suite Failure
+  hs-source-dirs:      test
+  main-is:             Failure.hs
+  ghc-options:         -Wall -fno-warn-orphans
+  type:                exitcode-stdio-1.0
+  build-depends:       base >=4.7 && <5
+                     , QuickCheck
+  default-language:    Haskell2010
+
+test-suite Idempotence
+  hs-source-dirs:      test
+  main-is:             Idempotence.hs
+  ghc-options:         -Wall -fno-warn-orphans
+  type:                exitcode-stdio-1.0
+  build-depends:       base >=4.7 && <5
+                     , QuickCheck
+  default-language:    Haskell2010
+
+test-suite Generator
+  hs-source-dirs:      test
+  main-is:             Generator.hs
+  ghc-options:         -Wall -fno-warn-orphans
+  type:                exitcode-stdio-1.0
+  build-depends:       base >=4.7 && <5
+                     , QuickCheck
+  default-language:    Haskell2010
+
+test-suite HangmanTest
+  hs-source-dirs:      test
+  main-is:             HangmanTest.hs
+  ghc-options:         -Wall -fno-warn-orphans
+  type:                exitcode-stdio-1.0
+  build-depends:       base >=4.7 && <5
+                     , exercises
+                     , hspec
+  default-language:    Haskell2010
+
+test-suite CipherTest
+  hs-source-dirs:      test
+  main-is:             CipherTest.hs
+  ghc-options:         -Wall -fno-warn-orphans
+  type:                exitcode-stdio-1.0
+  build-depends:       base >=4.7 && <5
+                     , exercises
+                     , QuickCheck
+  default-language:    Haskell2010
