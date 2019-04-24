@@ -1,5 +1,5 @@
 -- Chapter 14: Testing
--- Using QuickCheck (pages 570-571)
+-- Using QuickCheck (pages 562-563)
 
 import Test.QuickCheck
 import Data.List (sort)

@@ -1,5 +1,5 @@
 -- Chapter 14: Testing
--- Idempotence (page 572)
+-- Idempotence (pages 564-565)
 module Idempotence where
 
 import Data.Char
@@ -45,4 +45,3 @@ main = do
 
   putStrLn "SortFourTimes"
   quickCheck (sortFourTimes :: [Int] -> Bool)
-    

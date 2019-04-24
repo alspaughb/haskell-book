@@ -1,5 +1,5 @@
 -- Chapter 14: Testing
--- Validating numbers into words (page 569)
+-- Validating numbers into words (pages 561-562)
 module WordNumberTest where
   
 import Test.Hspec

@@ -1,5 +1,5 @@
 -- Chapter 14: Testing
--- Make a Gen random generator for the datatype (page 572-573)
+-- Make a Gen random generator for the datatype (page 565)
 module Generator where
 
 import Test.QuickCheck

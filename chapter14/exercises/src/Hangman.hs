@@ -1,3 +1,5 @@
+-- Chapter 14: Testing
+-- Hangman testing (page 565-566)
 module Hangman where
 
 data Puzzle = Puzzle String [Maybe Char] [Char]

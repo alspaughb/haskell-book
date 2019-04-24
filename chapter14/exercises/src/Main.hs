@@ -3,7 +3,7 @@ module Main where
 import Test.QuickCheck
 --import Test.QuickCheck.Gen (oneof)
 
--- Babby's First Arbitrary (pages 562-563)
+-- Babby's First Arbitrary (pages 555-556)
 data Trivial =
   Trivial
   deriving (Eq, Show)
@@ -18,7 +18,7 @@ instance Arbitrary Trivial where
 main :: IO ()
 main = sample trivialGen
 
--- Identity Crisis (pages 563-564)
+-- Identity Crisis (pages 556-567)
 data Identity a =
   Identity a
   deriving (Eq, Show)
@@ -36,7 +36,7 @@ instance Arbitrary a =>
 identityGenInt :: Gen (Identity Int)
 identityGenInt = identityGen
 
--- Arbitrary Produces (page 565-566)
+-- Arbitrary Products (page 557-558)
 data Pair a b =
   Pair a b
   deriving (Eq, Show)
@@ -47,6 +47,7 @@ pairGen = do
   a <- arbitrary
   b <- arbitrary
   return (Pair a b)
+-- pairGen = Pair <$> arbitrary <*> arbitrary
 
 instance (Arbitrary a,
           Arbitrary b) =>

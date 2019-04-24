@@ -1,5 +1,5 @@
 -- Chapter 14: Testing
--- Validating ciphers (page 574)
+-- Validating ciphers (page 567)
 module CipherTest where
 import Cipher
 import Test.QuickCheck
@@ -15,6 +15,8 @@ caesarGen = do
   shift <- arbitrary
   message <- genString
   return (shift, message)
+
+-- caesarGen = (,) <$> arbitrary <*> genString
 
 caesarAndBack :: Property
 caesarAndBack = forAll caesarGen (\(shift, message) ->

@@ -1,3 +1,5 @@
+-- Chapter 14: Testing
+-- Validating numbers into words (pages 561-562)
 module WordNumber where
 
 import Data.List (intercalate)

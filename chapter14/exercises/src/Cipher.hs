@@ -1,5 +1,5 @@
 -- Chapter 14: Testing
--- Validating ciphers (page 574)
+-- Validating ciphers (page 567)
 module Cipher where
 
 import Data.Char

@@ -1,5 +1,5 @@
 -- Chapter 14: Testing
--- Hangman testing (pages 573-574)
+-- Hangman testing (pages 565-566)
 module HangmanTest where
 
 import Test.Hspec

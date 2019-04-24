@@ -1,5 +1,5 @@
 -- Chapter 14: Testing
--- Failure (page 571)
+-- Failure (page 564)
 module Failure where
 
 import Test.QuickCheck
