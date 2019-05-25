@@ -29,8 +29,9 @@ instance Monoid a => Monoid (Identity a) where
     mappend = (<>)
 
 instance Arbitrary a => Arbitrary (Identity a) where
-  arbitrary = arbitrary >>= return . Identity
-
+--  arbitrary = arbitrary >>= return . Identity
+  arbitrary = fmap Identity arbitrary
+ 
 type IdentityAssoc a = Identity a -> Identity a -> Identity a -> Bool
 
 -- Question 3: Two
@@ -44,10 +45,11 @@ instance (Monoid a, Monoid b) => Monoid (Two a b) where
     mappend = (<>)
 
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Two a b) where
-  arbitrary = do
-    x <- arbitrary
-    y <- arbitrary
-    return (Two x y)
+--  arbitrary = do
+--    x <- arbitrary
+--    y <- arbitrary
+--    return (Two x y)
+  arbitrary = Two <$> arbitrary <*> arbitrary
 
 type TwoAssoc a b = Two a b -> Two a b -> Two a b -> Bool
 
@@ -100,7 +102,8 @@ instance Monoid b => Monoid (Combine a b) where
   mappend = (<>)
 
 instance (CoArbitrary a, Arbitrary b) => Arbitrary (Combine a b) where
-  arbitrary = arbitrary >>= return . Combine
+--  arbitrary = arbitrary >>= return . Combine
+  arbitrary = fmap Combine arbitrary
 
 combineAssoc :: (Semigroup b, Eq b) => 
   Combine a b -> Combine a b -> Combine a b -> a -> Bool
@@ -135,7 +138,8 @@ instance Monoid (Comp a) where
     mappend = (<>)
 
 instance (CoArbitrary a, Arbitrary a) => Arbitrary (Comp a) where
-  arbitrary = arbitrary >>= return . Comp
+--  arbitrary = arbitrary >>= return . Comp
+  arbitrary = fmap Comp arbitrary
 
 compAssoc :: Eq a => Comp a -> Comp a -> Comp a -> a -> Bool
 compAssoc f g h x = unComp (f <> (g <> h)) x == unComp ((f <> g) <> h) x
@@ -171,7 +175,8 @@ instance Monoid a => Monoid (Mem s a) where
   mappend = (<>)
 
 instance (Arbitrary a, Arbitrary s, CoArbitrary s) => Arbitrary (Mem s a) where
-  arbitrary = arbitrary >>= return . Mem
+--  arbitrary = arbitrary >>= return . Mem
+  arbitrary = fmap Mem arbitrary
 
 f' :: Num s => Mem s String
 f' = Mem $ \s -> ("hi", s + 1)

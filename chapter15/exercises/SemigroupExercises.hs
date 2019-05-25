@@ -21,7 +21,8 @@ instance Semigroup a => Semigroup (Identity a) where
   (Identity x) <> (Identity y) = Identity (x <> y)
 
 instance Arbitrary a => Arbitrary (Identity a) where
-  arbitrary = arbitrary >>= return . Identity
+--  arbitrary = arbitrary >>= return . Identity
+  arbitrary = fmap Identity arbitrary
 
 type IdentityAssoc a = Identity a -> Identity a -> Identity a -> Bool
 
@@ -32,10 +33,11 @@ instance (Semigroup a, Semigroup b) => Semigroup (Two a b) where
   (Two w x) <> (Two y z) = Two (w <> y) (x <> z)
 
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Two a b) where
-  arbitrary = do
-    x <- arbitrary
-    y <- arbitrary
-    return (Two x y)
+--  arbitrary = do
+--    x <- arbitrary
+--    y <- arbitrary
+--    return (Two x y)
+  arbitrary = Two <$> arbitrary <*> arbitrary
 
 type TwoAssoc a b = Two a b -> Two a b -> Two a b -> Bool
 
@@ -48,11 +50,12 @@ instance (Semigroup a, Semigroup b, Semigroup c) =>
 
 instance (Arbitrary a, Arbitrary b, Arbitrary c) => 
     Arbitrary (Three a b c) where
-  arbitrary = do
-    x <- arbitrary
-    y <- arbitrary
-    z <- arbitrary
-    return (Three x y z)
+--  arbitrary = do
+--    x <- arbitrary
+--    y <- arbitrary
+--    z <- arbitrary
+--    return (Three x y z)
+  arbitrary = Three <$> arbitrary <*> arbitrary <*> arbitrary
 
 type ThreeAssoc a b c = Three a b c -> Three a b c -> Three a b c -> Bool
 
@@ -65,12 +68,13 @@ instance (Semigroup a, Semigroup b, Semigroup c, Semigroup d) =>
 
 instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) =>
     Arbitrary (Four a b c d) where
-  arbitrary = do
-    w <- arbitrary
-    x <- arbitrary
-    y <- arbitrary
-    z <- arbitrary
-    return (Four w x y z)
+--  arbitrary = do
+--    w <- arbitrary
+--    x <- arbitrary
+--    y <- arbitrary
+--    z <- arbitrary
+--    return (Four w x y z)
+  arbitrary = Four <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
 
 type FourAssoc a b c d = Four a b c d -> Four a b c d -> Four a b c d -> Bool
 
@@ -130,7 +134,8 @@ instance Semigroup b => Semigroup (Combine a b) where
   (Combine f) <> (Combine g) = Combine (\x -> (f x) <> (g x))
 
 instance (CoArbitrary a, Arbitrary b) => Arbitrary (Combine a b) where
-  arbitrary = arbitrary >>= return . Combine
+--  arbitrary = arbitrary >>= return . Combine
+  arbitrary = fmap Combine arbitrary
 
 combineAssoc :: (Semigroup b, Eq b) => 
   Combine a b -> Combine a b -> Combine a b -> a -> Bool
@@ -155,8 +160,9 @@ instance Semigroup (Comp a) where
   (Comp f) <> (Comp g) = Comp (f . g)
 
 instance (CoArbitrary a, Arbitrary a) => Arbitrary (Comp a) where
-  arbitrary = arbitrary >>= return . Comp
- 
+--  arbitrary = arbitrary >>= return . Comp
+  arbitrary = fmap Comp arbitrary
+
 compAssoc :: Eq a => Comp a -> Comp a -> Comp a -> a -> Bool
 compAssoc f g h x = unComp (f <> (g <> h)) x == unComp ((f <> g) <> h) x
 
