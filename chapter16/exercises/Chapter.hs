@@ -8,7 +8,7 @@ module Chapter where
 -- Question 1: No: Bool :: *
 -- Question 2: Yes: BoolAndSomethingElse a :: * -> *
 -- Question 3: Yes: BoolAndMaybeSomethingElse a :: * -> *
--- Question 4: Yes: Mu f :: * -> *
+-- Question 4: No: f :: * -> *, OutF :: Mu f -> f (Mu f), but Mu :: (* -> *) -> *
 -- Question 5: No: D :: *
 
 -- Rearrange the arguments to the type constructor so the

@@ -2,7 +2,7 @@
 module Instances where
 import Test.QuickCheck
 
--- Exercises: Instances of Func
+-- Exercises: Instances of Func (pages 650-651)
 -- Question 1: Identity a
 newtype Identity a = Identity a
   deriving (Eq, Show)
@@ -11,9 +11,10 @@ instance Functor Identity where
   fmap f (Identity a) = Identity (f a)
 
 instance Arbitrary a => Arbitrary (Identity a) where
-   arbitrary = do
-     a <- arbitrary
-     return (Identity a)
+  arbitrary = Identity <$> arbitrary
+--   arbitrary = do
+--     a <- arbitrary
+--     return (Identity a)
 
 type IdentityComp a = 
      (Identity a)
@@ -29,10 +30,11 @@ instance Functor Pair where
   fmap f (Pair x y) = Pair (f x) (f y)
 
 instance Arbitrary a => Arbitrary (Pair a) where
-  arbitrary = do
-    x <- arbitrary
-    y <- arbitrary
-    return (Pair x y)
+  arbitrary = Pair <$> arbitrary <*> arbitrary
+--  arbitrary = do
+--    x <- arbitrary
+--    y <- arbitrary
+--    return (Pair x y)
 
 type PairComp a =
      (Pair a)
@@ -49,10 +51,11 @@ instance Functor (Two a) where
 
 instance (Arbitrary a, Arbitrary b) => 
     Arbitrary (Two a b) where
-  arbitrary = do
-    x <- arbitrary
-    y <- arbitrary
-    return (Two x y)
+  arbitrary = Two <$> arbitrary <*> arbitrary
+--  arbitrary = do
+--    x <- arbitrary
+--    y <- arbitrary
+--    return (Two x y)
 
 type TwoComp a b =
      (Two a b)
@@ -69,11 +72,12 @@ instance Functor (Three a b) where
 
 instance (Arbitrary a, Arbitrary b, Arbitrary c) =>
     Arbitrary (Three a b c) where
-  arbitrary = do
-    x <- arbitrary
-    y <- arbitrary
-    z <- arbitrary
-    return (Three x y z)
+  arbitrary = Three <$> arbitrary <*> arbitrary <*> arbitrary
+--  arbitrary = do
+--    x <- arbitrary
+--    y <- arbitrary
+--    z <- arbitrary
+--    return (Three x y z)
 
 type ThreeComp a b c =
      (Three a b c)
@@ -90,11 +94,12 @@ instance Functor (Three' a) where
 
 instance (Arbitrary a, Arbitrary b) =>
     Arbitrary (Three' a b) where
-  arbitrary = do
-    x <- arbitrary
-    y <- arbitrary
-    z <- arbitrary
-    return (Three' x y z)
+  arbitrary = Three' <$> arbitrary <*> arbitrary <*> arbitrary
+--  arbitrary = do
+--    x <- arbitrary
+--    y <- arbitrary
+--    z <- arbitrary
+--    return (Three' x y z)
 
 type Three'Comp a b =
      (Three' a b)
@@ -111,12 +116,13 @@ instance Functor (Four a b c) where
 
 instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) =>
     Arbitrary (Four a b c d) where
-  arbitrary = do
-    w <- arbitrary
-    x <- arbitrary
-    y <- arbitrary
-    z <- arbitrary
-    return (Four w x y z)
+  arbitrary = Four <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+--  arbitrary = do
+--    w <- arbitrary
+--    x <- arbitrary
+--    y <- arbitrary
+--    z <- arbitrary
+--    return (Four w x y z)
 
 type FourComp a b c d =
      (Four a b c d)
@@ -133,12 +139,13 @@ instance Functor (Four' a) where
 
 instance (Arbitrary a, Arbitrary b) =>
     Arbitrary (Four' a b) where
-  arbitrary = do
-    w <- arbitrary
-    x <- arbitrary
-    y <- arbitrary
-    z <- arbitrary
-    return (Four' w x y z)
+  arbitrary = Four' <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+--  arbitrary = do
+--    w <- arbitrary
+--    x <- arbitrary
+--    y <- arbitrary
+--    z <- arbitrary
+--    return (Four' w x y z)
 
 type Four'Comp a b =
      (Four' a b)
@@ -150,8 +157,7 @@ type Four'Comp a b =
 -- Can't be implemented because Trivial is not a higher-kinded type
 
 functorIdentity :: (Functor f, Eq (f a)) => f a -> Bool
-functorIdentity f =
-  fmap id f == f
+functorIdentity f = fmap id f == f
 
 functorCompose :: (Eq (f c), Functor f) =>
   f a -> Fun a b -> Fun b c -> Bool
