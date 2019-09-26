@@ -1,14 +1,15 @@
 -- Chapter 18: Monad
 module Exercises where
 
-import Control.Monad (ap, join)
-import Test.QuickCheck
-import Test.QuickCheck.Checkers
-import Test.QuickCheck.Classes
+import           Control.Monad            (ap, join)
+import           Test.QuickCheck
+import           Test.QuickCheck.Checkers
+import           Test.QuickCheck.Classes
 
 -- The answer is the exercise (page 735)
-bind :: Monad m => (a -> m b) -> m a -> m b 
+bind :: Monad m => (a -> m b) -> m a -> m b
 bind f m = join $ fmap f m
+-- bind f m = m >>= f
 
 -- Short Exercise: Either Monad (page 758)
 data Sum a b =
@@ -72,9 +73,9 @@ instance Functor (BahEither b) where
 instance Applicative (BahEither b) where
   pure = PLeft
   (<*>) = ap
---  PRight x <*> _        = PRight x
---  _        <*> PRight x = PRight x
---  PLeft f  <*> PLeft x  = PLeft $ f x
+-- PRight x <*> _        = PRight x
+-- _        <*> PRight x = PRight x
+-- PLeft f  <*> PLeft x  = PLeft $ f x
 
 instance Monad (BahEither b) where
   return = pure
@@ -86,12 +87,11 @@ instance (Arbitrary a, Arbitrary b)
     => Arbitrary (BahEither b a) where
   arbitrary = oneof [PLeft <$> arbitrary, PRight <$> arbitrary]
 
-instance (Eq a, Eq b) 
-    => EqProp (BahEither b a) where
+instance (Eq a, Eq b) => EqProp (BahEither b a) where
   (=-=) = eq
 
 -- Question 3: Identity
-newtype Identity a = Identity a 
+newtype Identity a = Identity a
     deriving (Eq, Ord, Show)
 
 instance Functor Identity where
@@ -133,7 +133,7 @@ instance Monad List where
 
 instance Arbitrary a => Arbitrary (List a) where
   arbitrary = mkList <$> arbitrary
-    where mkList [] = Nil
+    where mkList []     = Nil
           mkList (x:xs) = Cons x $ mkList xs
 
 instance Eq a => EqProp (List a) where
@@ -145,7 +145,7 @@ append (Cons x xs) ys =
   Cons x $ xs `append` ys
 
 fold :: (a -> b -> b) -> b -> List a -> b
-fold _ b Nil      = b
+fold _ b Nil        = b
 fold f b (Cons h t) = f h (fold f b t)
 
 concat' :: List (List a) -> List a
@@ -164,7 +164,7 @@ take' n (Cons x xs) = Cons x (take' (n-1) xs)
 main :: IO ()
 main = do
   putStr "Question 1: Nope"
-  let nopeTrigger 
+  let nopeTrigger
         = undefined :: Nope (Int, String, Int)
   quickBatch $ functor nopeTrigger
   quickBatch $ applicative nopeTrigger
@@ -172,7 +172,7 @@ main = do
 
   putStrLn ""
   putStr "Question 2: BahEither"
-  let bahEitherTrigger 
+  let bahEitherTrigger
         = undefined :: BahEither Int (Int, String, Int)
   quickBatch $ functor bahEitherTrigger
   quickBatch $ applicative bahEitherTrigger
@@ -180,7 +180,7 @@ main = do
 
   putStrLn ""
   putStr "Question 3: Identity"
-  let identityTrigger 
+  let identityTrigger
         = undefined :: Identity (Int, String, Int)
   quickBatch $ functor identityTrigger
   quickBatch $ applicative identityTrigger
@@ -188,7 +188,7 @@ main = do
 
   putStrLn ""
   putStr "Question 4: List"
-  let listTrigger 
+  let listTrigger
         = undefined :: List (Int, String, Int)
   quickBatch $ functor listTrigger
   quickBatch $ applicative listTrigger
@@ -196,11 +196,11 @@ main = do
 
 -- Write the functions (pages 771-772)
 -- Question 1
-j :: Monad m => m (m a) -> m a 
+j :: Monad m => m (m a) -> m a
 j = join
 
 -- Question 2
-l1 :: Monad m => (a -> b) -> m a -> m b 
+l1 :: Monad m => (a -> b) -> m a -> m b
 l1 = fmap
 
 -- Question 3
@@ -208,11 +208,11 @@ l2 :: Monad m => (a -> b -> c) -> m a -> m b -> m c
 l2 f x y = f <$> x <*> y
 
 -- Question 4
-a :: Monad m => m a -> m (a -> b) -> m b 
+a :: Monad m => m a -> m (a -> b) -> m b
 a = flip (<*>)
 
 -- Question 5
-meh :: Monad m 
+meh :: Monad m
     => [a] -> (a -> m b) -> m [b]
 meh []     _ = return []
 meh (a:as) f = do
